@@ -286,6 +286,290 @@
       ]
     },
     {
+      "Guid": "73B534AE-7C7E-4877-B826-F1C0EA339F65",
+      "Name": "Limerick",
+      "Description": "Stryker Orthopaedics",
+      "Location": {
+        "City": "Limerick",
+        "Country": "Ireland",
+        "Latitude": 52.625867,
+        "Longitude": -8.661904
+      },
+      "Image": "factory.png",
+      "ProductionLines": [
+        {
+          "Guid": "E8260A1A-DA12-473E-9955-B220B3985356",
+          "Name": "Stryker Production Line 1",
+          "Description": "Brake pads",
+          "Image": "factory_floor.gif",
+          "ImagePushpin": {
+            "Top": 290,
+            "Left": 425
+          },
+          "Simulation": {
+            "Id": "productionline0",
+            "Network": "munich0.corp.contoso",
+            "Mes": "Mes0254"
+          },
+          "Stations": [
+            {
+              "Name": "Stryker Assembly 1",
+              "Description": "Brake pad assembly station",
+              "Image": "assembly_station.png",
+              "ImagePushpin": {
+                "Top": 370,
+                "Left": 133
+              },
+              "OpcUri": "urn:scada2194:ua:munich:productionline0:assemblystation",
+              "Simulation": {
+                "Type": "Assembly",
+                "Id": "scada2194",
+                "Path": "Munich/ProductionLine0/AssemblyStation",
+                "Args": "200 6 yes"
+              },
+              "Kpi1": {
+                "Minimum": 150,
+                "Target": 300,
+                "Maximum": 600
+              },
+              "Kpi2": {
+                "Minimum": 50,
+                "Target": 100,
+                "Maximum": 200,
+                "MinimumAlertActions": [
+                  {
+                    "Type": "None"
+                  }
+                ]
+              },
+              "OpcNodes": [
+                {
+                  "NodeId": "ns=2;i=385",
+                  "SymbolicName": "NumberOfManufacturedProducts",
+                  "Relevance": [ "Kpi1", "OeeQuality_Good" ],
+                  "OpCode": "SubMaxMin"
+                },
+                {
+                  "NodeId": "ns=2;i=391",
+                  "SymbolicName": "NumberOfDiscardedProducts",
+                  "Relevance": [ "OeeQuality_Bad" ],
+                  "OpCode": "SubMaxMin"
+                },
+                {
+                  "NodeId": "ns=2;i=399",
+                  "SymbolicName": "FaultyTime",
+                  "Relevance": [ "OeeAvailability_Fault" ],
+                  "OpCode": "Sum",
+                  "Units": "ms"
+                },
+                {
+                  "SymbolicName": "RunningTime",
+                  "Relevance": [ "OeeAvailability_Running" ],
+                  "OpCode": "Timespan",
+                  "Visible": false,
+                  "Units": "ms"
+                },
+                {
+                  "NodeId": "ns=2;i=406",
+                  "SymbolicName": "EnergyConsumption",
+                  "Relevance": [ "Kpi2" ],
+                  "OpCode": "Sum",
+                  "Units": "kWh"
+                },
+                {
+                  "NodeId": "ns=2;i=434",
+                  "SymbolicName": "Pressure",
+                  "OpCode": "Avg",
+                  "Units": "mbar",
+                  "Maximum": 5000,
+                  "MaximumAlertActions": [
+                    {
+                      "Type": "CallOpcMethod",
+                      "Description": "Open valve",
+                      "Parameter": "ns=2;i=435, ns=2;i=424, opc.tcp://scada2194.munich0.corp.contoso:51210/UA/Munich/ProductionLine0/AssemblyStation"
+                    },
+                    {
+                      "Type": "OpenWebPage",
+                      "Description": "Open schematics",
+                      "Parameter": "https://aka.ms/azureiot/connectedfactory/schematics"
+                    }
+                  ]
+                },
+                {
+                  "NodeId": "ns=2;i=418",
+                  "SymbolicName": "ActualCycleTime",
+                  "Relevance": [ "OeePerformance_Actual" ],
+                  "OpCode": "Avg",
+                  "Units": "ms"
+                },
+                {
+                  "ConstValue": 6000,
+                  "SymbolicName": "IdealCycleTime",
+                  "OpCode": "Const",
+                  "Visible": false,
+                  "Units": "ms",
+                  "Relevance": [ "OeePerformance_Ideal" ]
+                }
+              ]
+            },
+            {
+              "Name": "Stryker Assembly 2",
+              "Description": "Brake pad test station",
+              "Image": "testing_station.png",
+              "ImagePushpin": {
+                "Top": 273,
+                "Left": 303
+              },
+              "OpcUri": "urn:scada1634:ua:munich:productionline0:teststation",
+              "Simulation": {
+                "Type": "Test",
+                "Id": "scada1634",
+                "Path": "Munich/ProductionLine0/TestStation",
+                "Args": "100 6 no"
+              },
+              "Kpi1": {
+                "Minimum": 150,
+                "Target": 300,
+                "Maximum": 600
+              },
+              "Kpi2": {
+                "Minimum": 25,
+                "Target": 50,
+                "Maximum": 100
+              },
+              "OpcNodes": [
+                {
+                  "NodeId": "ns=2;i=385",
+                  "SymbolicName": "NumberOfManufacturedProducts",
+                  "Relevance": [ "Kpi1", "OeeQuality_Good" ],
+                  "OpCode": "SubMaxMin"
+                },
+                {
+                  "NodeId": "ns=2;i=391",
+                  "SymbolicName": "NumberOfDiscardedProducts",
+                  "Relevance": [ "OeeQuality_Bad" ],
+                  "OpCode": "SubMaxMin"
+                },
+                {
+                  "NodeId": "ns=2;i=399",
+                  "SymbolicName": "FaultyTime",
+                  "Relevance": [ "OeeAvailability_Fault" ],
+                  "OpCode": "Sum",
+                  "Units": "ms"
+                },
+                {
+                  "SymbolicName": "RunningTime",
+                  "Relevance": [ "OeeAvailability_Running" ],
+                  "OpCode": "Timespan",
+                  "Visible": false,
+                  "Units": "ms"
+                },
+                {
+                  "NodeId": "ns=2;i=406",
+                  "SymbolicName": "EnergyConsumption",
+                  "Relevance": [ "Kpi2" ],
+                  "OpCode": "Sum",
+                  "Units": "kWh"
+                },
+                {
+                  "NodeId": "ns=2;i=418",
+                  "SymbolicName": "ActualCycleTime",
+                  "Relevance": [ "OeePerformance_Actual" ],
+                  "OpCode": "Avg",
+                  "Units": "ms"
+                },
+                {
+                  "ConstValue": 6000,
+                  "SymbolicName": "IdealCycleTime",
+                  "OpCode": "Const",
+                  "Visible": false,
+                  "Units": "ms",
+                  "Relevance": [ "OeePerformance_Ideal" ]
+                }
+              ]
+            },
+            {
+              "Name": "Packaging",
+              "Description": "Brake pad packaging station",
+              "Image": "packing_station.png",
+              "ImagePushpin": {
+                "Top": 390,
+                "Left": 560
+              },
+              "OpcUri": "urn:scada8344:ua:munich:productionline0:packagingstation",
+              "Simulation": {
+                "Type": "Packaging",
+                "Id": "scada8344",
+                "Path": "Munich/ProductionLine0/PackagingStation",
+                "Port": "51214",
+                "Args": "100 6 no"
+              },
+              "Kpi1": {
+                "Minimum": 150,
+                "Target": 300,
+                "Maximum": 600
+              },
+              "Kpi2": {
+                "Minimum": 25,
+                "Target": 50,
+                "Maximum": 100
+              },
+              "OpcNodes": [
+                {
+                  "NodeId": "ns=2;i=385",
+                  "SymbolicName": "NumberOfManufacturedProducts",
+                  "Relevance": [ "Kpi1", "OeeQuality_Good" ],
+                  "OpCode": "SubMaxMin"
+                },
+                {
+                  "NodeId": "ns=2;i=391",
+                  "SymbolicName": "NumberOfDiscardedProducts",
+                  "Relevance": [ "OeeQuality_Bad" ],
+                  "OpCode": "SubMaxMin"
+                },
+                {
+                  "NodeId": "ns=2;i=399",
+                  "SymbolicName": "FaultyTime",
+                  "Relevance": [ "OeeAvailability_Fault" ],
+                  "OpCode": "Sum",
+                  "Units": "ms"
+                },
+                {
+                  "SymbolicName": "RunningTime",
+                  "Relevance": [ "OeeAvailability_Running" ],
+                  "OpCode": "Timespan",
+                  "Visible": false,
+                  "Units": "ms"
+                },
+                {
+                  "NodeId": "ns=2;i=406",
+                  "SymbolicName": "EnergyConsumption",
+                  "Relevance": [ "Kpi2" ],
+                  "OpCode": "Sum",
+                  "Units": "kWh"
+                },
+                {
+                  "NodeId": "ns=2;i=418",
+                  "SymbolicName": "ActualCycleTime",
+                  "Relevance": [ "OeePerformance_Actual" ],
+                  "OpCode": "Avg",
+                  "Units": "ms"
+                },
+                {
+                  "ConstValue": 6000,
+                  "SymbolicName": "IdealCycleTime",
+                  "OpCode": "Const",
+                  "Visible": false,
+                  "Units": "ms",
+                  "Relevance": [ "OeePerformance_Ideal" ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "Guid": "CB1DBFA0-F520-46E1-85E1-97DCD67860D0",
       "Name": "Cape Town",
       "Description": "Fuel supply system",
