@@ -15,7 +15,7 @@
       "ProductionLines": [
         {
           "Guid": "E8260A1A-DA12-473E-9955-B220B3985356",
-          "Name": "Production Line 1",
+          "Name": "Stryker Production Line 1",
           "Description": "Brake pads",
           "Image": "factory_floor.gif",
           "ImagePushpin": {
@@ -29,7 +29,7 @@
           },
           "Stations": [
             {
-              "Name": "Assembly",
+              "Name": "Stryker Assembly 1",
               "Description": "Brake pad assembly station",
               "Image": "assembly_station.png",
               "ImagePushpin": {
@@ -129,7 +129,7 @@
               ]
             },
             {
-              "Name": "Test",
+              "Name": "Stryker Assembly 2",
               "Description": "Brake pad test station",
               "Image": "testing_station.png",
               "ImagePushpin": {
